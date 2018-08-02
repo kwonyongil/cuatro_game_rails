@@ -1,0 +1,64 @@
+ <nav class="navbar navbar-toggleable-md navbar-inverse navbar-fixed-top bg-faded"> 
+<!-- <nav class="navbar navbar-toggleable-md navbar-light bg-faded" >-->
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/home/index">휴학왕</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home/index">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/home/rule">Death Match Rule</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/game/index">Death Match start</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="/game/result">Death Match Result</a>
+      </li>
+    </ul>
+  </div>
+</nav> 
+ 
+ 
+<div class="entire">
+    <div class="container-fluid back-ground">
+        <div class="heading">
+            <h1>대장님이 되어 데스매치(콰트로)에서 승리하자!</h1>
+        </div>
+        <div class="align_a">
+            <div class="prof do">
+                <%=image_tag( "콰트로이두희.png", class: "doo") %>
+            </div>
+            <div class="vs">
+                <%=image_tag( "vs.png", class: "vss") %>
+            </div>
+            <div class="prof ho">
+                <%=image_tag( "홍진호.jpg", class: "hong") %>
+            </div>
+        </div>
+        <div class="button_0">
+            <a href="/game/index" class="btn btn-default">데스매치하러 가기</a>
+            <a href="/home/rule" class="btn btn-default">데스매치 룰 보러가기</a>
+
+        </div>    
+    </div>
+</div>
+<footer class="footer py-5">
+    <div class="author__img m-auto">
+        <%=image_tag( "휴학.jpg", class: "huh") %>
+    </div>
+    <h2 class="author__name mb-2 mt-3">제작자 : 권용일</h2>
+        <ul class="list-inline">
+            <li>
+                <a href="https://www.facebook.com/yongil.kwon.142"><span class="sr-only">Facebook</span><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/yongil.kwon.142/?hl=en" class="btn-social btn-outline"><span class="sr-only">Linked In</span><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            </li>
+        </ul>
+ 
+    <p class="copyright">&copy; 2017 kwonyongil. All Rights Reserved.</p>
+</footer>

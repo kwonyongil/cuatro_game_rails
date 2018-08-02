@@ -1,0 +1,327 @@
+<%
+@zero = 0
+@one = 0
+@two = 0
+@three = 0
+@four = 0
+    hong_imgs=['콰트로 홍진호.png','이미지 233.png','이미지 234.png']
+    @hong_img = hong_imgs.sample(1)
+    doo_imgs =['이미지 160.png','이미지 161.png','이미지 162.png','이미지 158.png']
+    @doo_img = doo_imgs.sample(1)
+    
+@mth = "0"
+    
+    @card_s = [0,0,0,0,0,0,0,0]
+    
+    4.times do |i|
+        @card_s[i] = @card[i]+'.png'  
+    end 
+    4.times do |i|
+        @card_s[i+4] = @card[i+4]+'.png'  
+    end 
+
+    @player_img = @round.turn.to_s+'p.png'
+
+    if @round.turn == 0
+        @player_name = '임요환'
+    elsif @round.turn == 1
+        @player_name = '오현민'
+    elsif @round.turn == 2
+        @player_name = '김경란'
+    elsif @round.turn == 3
+        @player_name = '이상민'
+    elsif @round.turn == 4
+        @player_name = '김경훈'
+    else
+        @player_name = '이준석'
+    end    
+        
+        
+for i in 0..3
+    @card_n = @card[4+i].to_i
+  if @card_n /10 == 0
+    @zero = @zero + 1
+    if @zero == 1
+      @zerotemp = 4+i
+    else  
+        if @card[@zerotemp] > @card[4+i]
+          @mth = (4+i).to_s 
+          if @card[@zerotemp] > @card[4+i] then
+              break
+          end
+        else
+          @mth = @zerotemp.to_s
+          if @card[@zerotemp] < @card[4+i] then
+              break
+          end
+        end
+    end
+  elsif @card_n /10  == 1 
+    @one = @one + 1
+    if @one == 1
+       @onetemp = 4+i
+    else 
+        if @card[@onetemp] > @card[4+i]
+           @mth = (4+i).to_s 
+           if @card[@onetemp] > @card[4+i] then
+               break
+           end
+        else
+           @mth = @onetemp.to_s
+           if @card[@onetemp] < @card[4+i] then
+               break
+           end
+        end
+    end
+  elsif @card_n /10 == 2
+    @two = @two + 1
+    if @two == 1
+      @twotemp = 4+i
+    else 
+        if @card[@twotemp] > @card[4+i]
+          @mth = (4+i).to_s 
+           if @card[@twotemp] > @card[4+i] then
+          break
+          end
+        else
+          @mth = @twotemp.to_s
+          if @card[@twotemp] < @card[4+i] then
+          break
+          end
+        end
+    end
+  elsif   @card_n /10 == 3
+    @three = @three + 1
+    if @three == 1
+       @threetemp = 4+i
+    else 
+        if @card[@threetemp] > @card[4+i]
+           @mth = (4+i).to_s 
+           if @card[@threetemp] > @card[4+i] then
+           break
+           end
+        else
+           @mth = @threetemp.to_s
+           if @card[@threetemp] < @card[4+i] then
+           break
+           end
+        end
+    end
+  else 
+      @four = @four + 1
+      if @four == 1
+         @fourtemp = 4+i
+      else 
+        @mth = @fourtemp.to_s
+        if @four != 1 then
+            break
+        end
+      end
+  end
+end
+
+if @mth == "0"
+    4.times do |i|
+        @card_n = @card[4+i].to_i
+        if @card_n == 40 || @card_n == 50
+            @mth = (4+i).to_s
+        end
+    end
+end
+
+# 상대방 몇번 째 카드 제출할지
+
+@zero = 0
+@one = 0
+@two = 0
+@three = 0
+@four = 0
+
+
+4.times do |i|
+    @card_n = @card[4+i].to_i
+    
+    if @card_n/10 == 0
+        @zero = @zero + 1
+    elsif @card_n /10 == 1
+        @one = @one + 1
+    elsif  @card_n/10 == 2
+        @two = @two + 1
+    elsif  @card_n/10 == 3
+        @three = @three + 1
+    else
+        @four = @four + 1
+    end
+end
+
+if @zero == 0
+    @color_2 = "red"
+elsif @one == 0
+    @color_2 = "blue"
+elsif @two == 0
+    @color_2 = "yellow"
+elsif @three == 0
+    @color_2 = "green"
+else
+    @color_2 = "stop"
+    #4가지색 다 있으면 안바꿈
+end
+
+ # 상대방 무슨 색 카드 필요한지
+%>
+ <nav class="navbar navbar-toggleable-md navbar-inverse navbar-fixed-top"> 
+<!-- <nav class="navbar navbar-toggleable-md navbar-light bg-faded" >-->
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/home/index">휴학왕</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item ">
+        <a class="nav-link" href="/home/index">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/home/rule">Death Match Rule</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/game/index">Death Match start</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="/game/result">Death Match Result</a>
+      </li>
+    </ul>
+  </div>
+</nav> 
+
+<div class="entire">
+    <div class="container index_turn">
+        <div class="row number_row">
+            <div class="number_img ho">
+                <%=image_tag( "%s" %@hong_img, class: "hong") %>
+            </div>
+            <div class="number_img_img col-sm-6 col-md-6">
+          
+                <%=image_tag( "이미지 232.png", class: "o") %>
+            
+                <%=image_tag( "이미지 232.png", class: "o") %>
+           
+                <%=image_tag( "이미지 232.png", class: "o") %>
+          
+                <%=image_tag( "이미지 232.png", class: "o") %>
+            </div>
+        </div>
+    </div>
+    <div class="container player">
+        <div class="player_img row">
+            <%=image_tag( "%s" %@player_img, class: "player_img_img") %>
+        </div>
+         <div class="player_img_2">
+            <% if @round.turn != 6 %>
+                <p class="ppp"><%=@round.turn+1%>번째 턴입니다.
+                <%if @round.turn == 4%>이제 교환을 안하셔도 됩니다. <%end%> <br> <%=@player_name%>님과 교환할 차례입니다.</p>
+
+            <% else %>
+            <p class="ppp">모든 교환이 끝났습니다.</p>
+            <% end %>
+        </div>
+    </div>
+    <div class="container index_turn_2">
+        <div class="row number_row">
+            <div class="number_img do">
+                <%=image_tag( "%s" %@doo_img, class: "doo") %>
+            </div>
+            <div class="number_img_img col-sm-6 col-md-6">
+          
+                <%=image_tag( "%s" %@card_s[0], class: "o") %>
+            
+                <%=image_tag( "%s" %@card_s[1], class: "o") %>
+           
+                <%=image_tag( "%s" %@card_s[2], class: "o") %>
+         
+                <%=image_tag( "%s" %@card_s[3], class: "o") %>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="container form_death">
+        <div>
+            <h2 class="subj">카드 바꾸기</h2>
+        </div>
+  
+         <form actions='game/index' method='post' class="form_death_2">
+        
+            <% if @mth == "4" %>
+            <input type="hidden" name="mth" value="4">
+            <% elsif @mth == "5" %>
+            <input type="hidden" name="mth" value="5">
+             <% elsif @mth == "6" %>
+            <input type="hidden" name="mth" value="6">
+             <% elsif @mth == "7" %>
+            <input type="hidden" name="mth" value="7">
+            <% else %>
+            <% end %>
+            
+            <% if @color_2 == "red" %>
+            <input type="hidden" name="color_2" value="red">
+            <% elsif @color_2 == "blue" %> 
+            <input type="hidden" name="color_2" value="blue">
+            <% elsif @color_2 == "yellow" %> 
+            <input type="hidden" name="color_2" value="yellow">
+            <% elsif @color_2 == "green" %> 
+            <input type="hidden" name="color_2" value="green">
+            <% elsif @color_2 == "stop" %> 
+            <input type="hidden" name="color_2" value="stop">
+            <% else %>
+            <% end %>
+              
+            <div class="radio_sort">
+                <label class="radio-inline raido-2">
+                    <input type="radio" name="nth" value="1" checked>첫번째를 카드 교환
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="nth" value="2">두번째 카드를 교환
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="nth" value="3">세번째 카드를 교환
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="nth" value="4">네번째 카드를 교환
+                </label>
+            </div>
+            <div class="radio_sort">
+                <label class="radio-inline">
+                    <input type="radio" name="color" value="red" checked>빨간색이 필요합니다!
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="color" value="blue">파란색이 필요합니다!
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="color" value="yellow">노란색이 필요합니다!
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="color" value="green">초록색이 필요합니다!
+                </label>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-default">카드 교환</button>
+            </div> 
+        </form>
+    </div>
+</div>
+<footer class="footer py-5">
+    <div class="author__img m-auto">
+        <%=image_tag( "휴학.jpg", class: "huh") %>
+    </div>
+    <h2 class="author__name mb-2 mt-3">제작자 : 권용일</h2>
+        <ul class="list-inline">
+            <li>
+                <a href="https://www.facebook.com/yongil.kwon.142"><span class="sr-only">Facebook</span><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/yongil.kwon.142/?hl=en" class="btn-social btn-outline"><span class="sr-only">Linked In</span><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            </li>
+        </ul>
+ 
+    <p class="copyright">&copy; 2017 kwonyongil. All Rights Reserved.</p>
+</footer>

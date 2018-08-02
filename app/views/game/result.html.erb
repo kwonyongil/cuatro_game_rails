@@ -1,0 +1,339 @@
+
+<%
+#-----------승부 !---------------
+
+
+    lose_imgs=['콰트로패배.jpg','이미지 159.png','이미지 157.png','이미지 150.png']
+    @lose_img = lose_imgs.sample(1)
+    win_imgs =['이미지 151.png','이미지 163.png']
+    @win_img = win_imgs.sample(1)
+    
+   @card = ['1','2','3','4','5','6','11','12','13','14','15','16',
+    '21','22','23','24','25','26','31','32','33','34','35','36','40','50'];
+    
+    @card[0] = @player1.firstcard 
+    @card[1] = @player1.secondcard 
+    @card[2] = @player1.thirdcard 
+    @card[3] = @player1.fourthcard
+    
+    @card[4] = @player2.firstcard 
+    @card[5] = @player2.secondcard 
+    @card[6] = @player2.thirdcard 
+    @card[7] = @player2.fourthcard
+    
+    @card_s = [0,0,0,0,0,0,0,0]
+    
+    4.times do |i|
+        @card_s[i] = @card[i]+'.png'  
+    end 
+    4.times do |i|
+        @card_s[i+4] = @card[i+4]+'.png'  
+    end 
+
+@result_1 = 0
+@result_2 = 0
+@point_1 = 0
+@point_2 = 0
+
+@blue = 0
+@yellow = 0
+@red = 0
+@green = 0
+@black = 0
+@high_1_temp = 0
+@high_2_temp = 0
+
+4.times do |i|
+    
+    @card_n = @card[i].to_i
+    
+    if @card_n/10 == 0
+        @red = @red + 1
+    elsif @card_n/10 == 1
+        @blue = @blue + 1
+    elsif  @card_n/10 == 2
+        @yellow = @yellow + 1
+    elsif  @card_n/10 == 3
+        @green= @green + 1
+    else
+        @black = @black + 1
+    end
+end
+
+if @red == 2 || @red == 3 || @red == 4
+    @point_1 = 0
+elsif  @blue == 2 || @blue == 3 || @blue == 4
+    @point_1 = 0
+elsif @yellow == 2 || @yellow == 3 || @yellow == 4
+    @point_1 = 0
+elsif @green == 2 || @green == 3 || @green == 4
+    @point_1 = 0
+else
+    @point_1 = 1
+end
+# 콰트로가 완성됬는지 확인------------------------------
+
+4.times do |i|
+    @card_n = @card[i].to_i
+    
+    if @high_1_temp < @card_n%10
+        @high_1_temp = @card_n%10
+        @high_1_color = @card_n/10
+    end
+    
+    @result_1 = @result_1 + @card_n%10
+end
+
+# player 1 점수 집계--------------------------------------------------------
+
+@blue = 0
+@yellow = 0
+@red = 0
+@green = 0
+@black = 0
+
+4.times do |i|
+    
+    @card_n = @card[4+i].to_i
+    
+    if @card_n/10 == 0
+        @red = @red + 1
+    elsif @card_n/10 == 1
+        @blue = @blue + 1
+    elsif  @card_n/10 == 2
+        @yellow = @yellow + 1
+    elsif  @card_n/10 == 3
+        @green= @green + 1
+    else
+        @black = @black + 1
+    end
+end
+
+if @red == 2 || @red == 3 || @red == 4
+    @point_2 = 0
+elsif  @blue == 2 || @blue == 3 || @blue == 4
+    @point_2 = 0
+elsif @yellow == 2 || @yellow == 3 || @yellow == 4
+    @point_2 = 0
+elsif @green == 2 || @green == 3 || @green == 4
+    @point_2 = 0
+else
+    @point_2 = 1
+end
+# 콰트로가 완성됬는지 확인------------------------------
+
+4.times do |i|
+    @card_n = @card[4+i].to_i
+    
+    if @high_2_temp < @card_n%10
+        @high_2_temp = @card_n%10
+        @high_2_color = @card_n/10
+    end
+        
+    @result_2 = @result_2 + @card_n%10
+end
+
+# 승부------------------------------------------------%>
+ <nav class="navbar navbar-toggleable-md navbar-inverse navbar-fixed-top"> 
+<!-- <nav class="navbar navbar-toggleable-md navbar-light bg-faded" >-->
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/home/index">휴학왕</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item ">
+        <a class="nav-link" href="/home/index">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/home/rule">Death Match Rule</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/game/index">Death Match start</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/game/result">Death Match Result</a>
+      </li>
+    </ul>
+  </div>
+</nav> 
+<div class="entire">
+    <div class="subj_2">
+        <h2 class="subj">대장님과 홍진호님의 카드</h2>
+    </div>
+    <div class="container">
+        <div class="row result_row number_row">
+            <div class="number_img do">
+                <%=image_tag( "콰트로이두희.png", class: "doo") %>
+            </div>
+            <div class="col-sm-1 col-md-2 wid">
+                <%=image_tag( "%s" %@card_s[0], class: "o") %>
+            </div>
+            <div class="col-sm-1 col-md-2 wid">
+                <%=image_tag( "%s" %@card_s[1], class: "o") %>
+            </div>
+            <div class="col-sm-1 col-md-2 wid">
+                <%=image_tag( "%s" %@card_s[2], class: "o") %>
+            </div>
+            <div class="col-sm-1 col-md-2 wid">
+                <%=image_tag( "%s" %@card_s[3], class: "o") %>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row result_row number_row">
+            <div class="number_img ho">
+                <%=image_tag( "홍진호.jpg", class: "hong") %>
+            </div>
+            <div class="col-sm-1 col-md-2 wid">
+                <%=image_tag( "%s" %@card_s[4], class: "o") %>
+            </div>
+            <div class="col-sm-1 col-md-2 wid">
+                <%=image_tag( "%s" %@card_s[5], class: "o") %>
+            </div>
+            <div class="col-sm-1 col-md-2 wid">
+                <%=image_tag( "%s" %@card_s[6], class: "o") %>
+            </div>
+            <div class="col-sm-1 col-md-2 wid">
+                <%=image_tag( "%s" %@card_s[7], class: "o") %>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row result_row_2 justify-content-center">
+    
+        <%
+            if @point_1 == 1 && @point_2 == 1
+                if @result_1 > @result_2 %>
+                    <div class="result_img col-sm-6 col-md-8">
+                    <%=image_tag( "%s" %@win_img, class: "oo") %>
+                    </div>
+                    <p> 합계가 더 높습니다. 데스매치에서 승리하셨습니다!!! </p>
+            <%  elsif @result_1 < @result_2 %>
+                    <div class="result_img col-sm-6 col-md-8">
+                    <%=image_tag( "%s" %@lose_img , class: "oo") %>
+                    </div>
+                    <p> 합계가 더 낮습니다. 데스매치에서 패배하였습니다ㅜㅜ </p>
+            <%  else 
+                    if @high_1_temp < @high_2_temp %>
+                        <div class="result_img col-sm-6 col-md-8">
+                        <%=image_tag( "%s" %@lose_img , class: "oo") %>
+                        </div>
+                        <p> 최고 숫자가 낮습니다. 데스매치에서 패배하였습니다ㅜㅜ </p>
+            <%      elsif @high_1_temp > @high_2_temp %>
+                        <div class="result_img col-sm-6 col-md-8">
+                        <%=image_tag( "%s" %@win_img, class: "oo") %>
+                        </div>
+                        <p> 최고 숫자가 더 큽니다. 데스매치에서 승리하엿습니다!! </p>
+            <%      else
+                        if @high_1_color < @high_2_color  %>
+                            <div class="result_img col-sm-6 col-md-8">
+                            <%=image_tag( "%s" %@win_img, class: "oo") %>
+                            </div>
+                            <p>데스매치에서 승리하셨습니다!! </p>
+                            
+            <%          elsif @high_1_color > @high_2_color %>
+                            <div class="result_img col-sm-6 col-md-8">
+                            <%=image_tag( "%s" %@lose_img , class: "oo") %>
+                            </div>
+                            <p>데스매치에서 패배하였습니다 ㅜㅜ </p>
+                            
+            <%          end    
+                    end
+                end    
+            end     
+                 
+                if @point_1 == 0 && @point_2 == 0
+                    if @result_1 > @result_2 %>
+                        <div class="result_img col-sm-6 col-md-8">
+                        <%=image_tag( "%s" %@win_img, class: "oo") %>
+                        </div>
+                        <p> 합계가 더 높습니다. 데스매치에서 승리하셨습니다!! </p>
+            <%      elsif @result_1 < @result_2 %>
+                        <div class="result_img col-sm-6 col-md-8">
+                        <%=image_tag( "%s" %@lose_img , class: "oo") %>
+                        </div>
+                        <p> 합계가 더 낮습니다. 데스매치에서 패배하였습니다ㅜ </p>
+            <%      else 
+                        if @high_1_temp < @high_2_temp %>
+                            <div class="result_img col-sm-6 col-md-8">
+                            <%=image_tag( "%s" %@lose_img , class: "oo") %>
+                            </div>
+                            <p> 최고 숫자가 낮습니다. 데스매치에서 패배하였습니다. </p>
+            <%          elsif @high_1_temp > @high_2_temp %>
+                            <div class="result_img col-sm-6 col-md-8">
+                            <%=image_tag( "%s" %@win_img, class: "oo") %>
+                            </div>
+                             <p> 최고 숫자가 더 큽니다. 데스매치에서 승리하엿습니다. </p>
+            <%          else
+                            if @high_1_color < @high_2_color  %>
+                                <div class="result_img col-sm-6 col-md-8">
+                                <%=image_tag( "%s" %@win_img, class: "oo") %>
+                                </div>
+                                <p>데스매치에서 승리하셨습니다! </p>
+                            
+            <%              elsif @high_1_color > @high_2_color %>
+                                <div class="result_img col-sm-6 col-md-8">
+                                <%=image_tag( "%s" %@lose_img , class: "oo") %>
+                                </div>
+                                <p>데스매치에서 패배하였습니다 ㅜㅜ </p>
+                <%              end    
+                        end
+                    end    
+                   elsif @point_1 == 1 && @point_2 == 0 %>
+                        <div class="result_img col-sm-6 col-md-8">
+                        <%=image_tag( "%s" %@win_img, class: "oo") %>
+                        </div>
+                        <p> 상대방이 콰트로를 완성시키지 못했습니다. 데스매치에서 승리하셨습니다! </p>
+                <% elsif @point_1 == 0 && @point_2 == 1 %>
+                <div class="result_img col-sm-6 col-md-8">
+                    <%=image_tag( "%s" %@lose_img , class: "oo") %>
+                </div>
+                <p> 콰트로를 완성시키지 못하셨습니다. 데스매치에서 패배하였습니다 ㅜ</p>
+                <% else %>
+                <% end %>
+        
+                <a href="/home/index" class="btn btn-default">다시 도전 하기</a>
+        
+        
+        </div>
+    </div> 
+</div>    
+<footer class="footer py-5">
+    <div class="author__img m-auto">
+        <%=image_tag( "휴학.jpg", class: "huh") %>
+    </div>
+    <h2 class="author__name mb-2 mt-3">제작자 : 권용일</h2>
+        <ul class="list-inline">
+            <li>
+                <a href="https://www.facebook.com/yongil.kwon.142"><span class="sr-only">Facebook</span><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/yongil.kwon.142/?hl=en" class="btn-social btn-outline"><span class="sr-only">Linked In</span><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            </li>
+        </ul>
+ 
+    <p class="copyright">&copy; 2017 kwonyongil. All Rights Reserved.</p>
+</footer>
+<iframe class="sr-only" width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/329883843&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+         
+         
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
